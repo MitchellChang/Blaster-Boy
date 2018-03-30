@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour {
         //jump movement
         if (Input.GetKey("up") && isGrounded)
         {
-            Debug.Log("why won't you fucking jump");
+            Debug.Log("why won't you jump");
             playerRigid.AddForce(Vector2.up * jumpForce);
         }
 	}
