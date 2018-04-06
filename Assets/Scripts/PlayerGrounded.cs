@@ -13,7 +13,8 @@ public class PlayerGrounded : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        player.isGrounded = true;
+        if (other.tag == "Ground")
+            player.isGrounded = true;
     }
 
     void OnTriggerExit2D(Collider2D other)
@@ -23,6 +24,7 @@ public class PlayerGrounded : MonoBehaviour {
 
     void OnTriggerStay2D(Collider2D other)
     {
-        player.isGrounded = true;
+        if (other.tag == "Ground")
+            player.isGrounded = true;
     }
 }
