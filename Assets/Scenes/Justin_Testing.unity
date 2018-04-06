@@ -162,6 +162,11 @@ Prefab:
       propertyPath: fallMultiplier
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114214852378226266, guid: d0e3ee258b7c776478aeca6627182518,
+        type: 2}
+      propertyPath: Camera
+      value: 
+      objectReference: {fileID: 1994556995}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d0e3ee258b7c776478aeca6627182518, type: 2}
   m_IsPrefabParent: 0

@@ -7,15 +7,16 @@ public class Player : MonoBehaviour {
     Rigidbody2D rb;
     Animator anim;
     public Transform groundCheck;
+    public GameObject Camera;
+
+    public float CameraZoom = -10f;
 
     //player movement
     [HideInInspector] public bool jump = false;
-    
     [Range(1, 10)]
     public float jumpVelocity;
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2f;
-    
     public float moveForce = 365f;
     public float maxSpeed = 3f;
     private bool grounded = false;
@@ -43,7 +44,8 @@ public class Player : MonoBehaviour {
 
     void FixedUpdate()
     {
-        
+        UpdateCamera(); //for some reason it's making the character look really glitchy in the Game scene
+
         //needs serious revamping
         if (jump)
         {
@@ -92,5 +94,10 @@ public class Player : MonoBehaviour {
         {
             rb.GetComponent<SpriteRenderer>().flipX = true;
         }
+    }
+
+    private void UpdateCamera()
+    {
+        Camera.transform.position = new Vector3(transform.position.x, transform.position.y + 2, CameraZoom);
     }
 }
