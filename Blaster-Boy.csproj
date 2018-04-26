@@ -291,6 +291,7 @@
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PlayerGrounded.cs" />
     <Compile Include="Assets\Scripts\PlayerHealth.cs" />
+    <Compile Include="Assets\Scripts\Weapon.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Sprites\Robot_Game_Enemies_Sprite_Art_Pack_1\Notes.txt" />
