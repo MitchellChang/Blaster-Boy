@@ -33,6 +33,7 @@ public class Player : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        UpdateCamera(); //for some reason it's making the character look really glitchy in the Game scene
         grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
 
         if (Input.GetButton("Jump") && grounded)
@@ -44,7 +45,6 @@ public class Player : MonoBehaviour {
 
     void FixedUpdate()
     {
-        UpdateCamera(); //for some reason it's making the character look really glitchy in the Game scene
 
         //needs serious revamping
         if (jump)

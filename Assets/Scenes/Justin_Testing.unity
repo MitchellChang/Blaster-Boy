@@ -122,11 +122,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4727218655694924, guid: d0e3ee258b7c776478aeca6627182518, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -0.92071104
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4727218655694924, guid: d0e3ee258b7c776478aeca6627182518, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.7986231
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4727218655694924, guid: d0e3ee258b7c776478aeca6627182518, type: 2}
       propertyPath: m_LocalPosition.z
@@ -167,6 +167,11 @@ Prefab:
       propertyPath: Camera
       value: 
       objectReference: {fileID: 1994556995}
+    - target: {fileID: 61254671610367852, guid: d0e3ee258b7c776478aeca6627182518,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d0e3ee258b7c776478aeca6627182518, type: 2}
   m_IsPrefabParent: 0
