@@ -6,6 +6,8 @@ public class Weapon : MonoBehaviour {
     public float fireRate = 0;
     public float Damage = 10;
     public LayerMask notToHit;
+    public Transform bulletSpawn;
+    public GameObject bullets;
 
     float timeToFire = 0;
     Transform firePoint;
@@ -28,10 +30,18 @@ public class Weapon : MonoBehaviour {
                 Shoot();
             }
         }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Z) && Time.time > timeToFire)
+            {
+                timeToFire = Time.time + fireRate;
+                Shoot();
+            }
+        }
 	}
 
     void Shoot()
     {
-
+        Instantiate(bullets, firePoint.position, Quaternion.identity);
     }
 }

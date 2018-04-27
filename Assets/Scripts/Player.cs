@@ -20,14 +20,29 @@ public class Player : MonoBehaviour {
     public float moveForce = 365f;
     public float maxSpeed = 3f;
     private bool grounded = false;
+    public float fireRate = 0;
+    public float timeToFire = 0.3f;
+    public float Damage = 10;
+    public LayerMask notToHit;
+    public Transform bulletSpawn;
+    public GameObject bullets;
+    Transform firePoint;
 
-
-    
     // Use this for initialization
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        firePoint = transform.Find("FirePoint");
+        if (firePoint == null)
+        {
+            Debug.LogError("Fire Point not found.");
+        }
+    }
+
+    void Shoot()
+    {
+        Instantiate(bullets, firePoint.position, Quaternion.identity);
     }
 
     // Update is called once per frame
@@ -40,6 +55,21 @@ public class Player : MonoBehaviour {
         {
             jump = true;
             //anim.SetBool("jumpCheck", true);
+        }
+        if (fireRate == 0)
+        {
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                Shoot();
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Z) && Time.time > timeToFire)
+            {
+                timeToFire = Time.time + fireRate;
+                Shoot();
+            }
         }
     }
 
@@ -89,11 +119,11 @@ public class Player : MonoBehaviour {
         //flips player sprite to face direction it is moving
         if (moveX > 0)
         {
-            rb.GetComponent<SpriteRenderer>().flipX = false;
+            rb.GetComponent <Transform>().localScale = new Vector3(0.3615583f, 0.3615583f, 0.3615583f);
         }
         else if (moveX < 0)
         {
-            rb.GetComponent<SpriteRenderer>().flipX = true;
+            rb.GetComponent<Transform>().localScale = new Vector3(-0.3615583f, 0.3615583f, 0.3615583f);
         }
     }
 
