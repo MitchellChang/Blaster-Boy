@@ -33,13 +33,13 @@ public class Player : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        UpdateCamera(); //for some reason it's making the character look really glitchy in the Game scene
+        UpdateCamera();
         grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
 
         if (Input.GetButton("Jump") && grounded)
         {
             jump = true;
-            anim.SetBool("jumpCheck", true);
+            //anim.SetBool("jumpCheck", true);
         }
     }
 
@@ -51,8 +51,9 @@ public class Player : MonoBehaviour {
         {
             GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpVelocity, ForceMode2D.Impulse);
             jump = false;
-            anim.SetBool("jumpCheck", false);
+            //anim.SetBool("jumpCheck", false);
         }
+        //needs an else if statement allowing for ^> arrow key jumping, to ensure that the player can constantly jump while running
 
         //Fall gravity
         if (rb.velocity.y < 0)
@@ -63,7 +64,7 @@ public class Player : MonoBehaviour {
         {
             rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
-        Debug.Log(rb.velocity.y);
+        //Debug.Log(rb.velocity.y);
         anim.SetFloat("fallCheck", rb.velocity.y);
         //player somehow maintains a velocity of between 0 and -0.2943, according to the debug log
 
