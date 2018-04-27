@@ -5,7 +5,7 @@ using UnityEngine;
 public class BulletTravel : MonoBehaviour {
 
     private Rigidbody2D rb;
-    public float bulletSpeed = 10f;
+    //public float bulletSpeed = 10f;
 
 	// Use this for initialization
 	void Start () {
@@ -14,7 +14,7 @@ public class BulletTravel : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        rb.velocity = new Vector2 (bulletSpeed, 0);
+        //rb.velocity = new Vector2 (bulletSpeed, 0);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

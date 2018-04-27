@@ -3018,7 +3018,7 @@ Prefab:
         type: 2}
       propertyPath: bullets
       value: 
-      objectReference: {fileID: 1509932026983200, guid: a5ad365098cd77849933f7a6ba0db12c,
+      objectReference: {fileID: 50199020451416896, guid: a5ad365098cd77849933f7a6ba0db12c,
         type: 2}
     - target: {fileID: 114214852378226266, guid: d0e3ee258b7c776478aeca6627182518,
         type: 2}
@@ -3030,6 +3030,11 @@ Prefab:
       propertyPath: fireRate
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 114214852378226266, guid: d0e3ee258b7c776478aeca6627182518,
+        type: 2}
+      propertyPath: firePoint
+      value: 
+      objectReference: {fileID: 1762981500}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d0e3ee258b7c776478aeca6627182518, type: 2}
   m_IsPrefabParent: 0

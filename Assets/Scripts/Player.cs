@@ -8,6 +8,9 @@ public class Player : MonoBehaviour {
     Animator anim;
     public Transform groundCheck;
     public GameObject Camera;
+    private Rigidbody2D formBullet;
+    public Rigidbody2D bullets;
+    public Transform firePoint;
 
     public float CameraZoom = -10f;
 
@@ -23,10 +26,10 @@ public class Player : MonoBehaviour {
     public float fireRate = 0;
     public float timeToFire = 0.3f;
     public float Damage = 10;
-    public LayerMask notToHit;
-    public Transform bulletSpawn;
-    public GameObject bullets;
-    Transform firePoint;
+    public float bulletSpeed = 10f;
+    private bool facingLeft = false;
+
+
 
     // Use this for initialization
     void Start()
@@ -40,11 +43,6 @@ public class Player : MonoBehaviour {
         }
     }
 
-    void Shoot()
-    {
-        Instantiate(bullets, firePoint.position, Quaternion.identity);
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -56,6 +54,7 @@ public class Player : MonoBehaviour {
             jump = true;
             //anim.SetBool("jumpCheck", true);
         }
+
         if (fireRate == 0)
         {
             if (Input.GetKeyDown(KeyCode.Z))
@@ -116,19 +115,36 @@ public class Player : MonoBehaviour {
                 //rb.velocity = new Vector2(0, rb.velocity.y);
         }
 
-        //flips player sprite to face direction it is moving
+        //flips player scale to face direction it is moving
         if (moveX > 0)
         {
             rb.GetComponent <Transform>().localScale = new Vector3(0.3615583f, 0.3615583f, 0.3615583f);
+            facingLeft = false;
         }
         else if (moveX < 0)
         {
             rb.GetComponent<Transform>().localScale = new Vector3(-0.3615583f, 0.3615583f, 0.3615583f);
+            facingLeft = true;
         }
     }
 
     private void UpdateCamera()
     {
         Camera.transform.position = new Vector3(transform.position.x, transform.position.y + 2, CameraZoom);
+    }
+
+    void Shoot()
+    {    
+        formBullet = Instantiate(bullets, firePoint.position, firePoint.rotation) as Rigidbody2D;
+        if (facingLeft)
+        {
+            formBullet.velocity = bulletSpeed * formBullet.transform.right * -1;
+            
+        }
+        else if (!facingLeft)
+        {
+            formBullet.velocity = bulletSpeed * formBullet.transform.right;
+            
+        }
     }
 }
