@@ -6,6 +6,7 @@ public class EnemyController : MonoBehaviour {
 
     Rigidbody2D rb;
     public float speed = 1f;
+    public float health = 100f;
     public LayerMask enemyMask;
     Transform myTrans;
     float myWidth, myHeight;
@@ -44,5 +45,31 @@ public class EnemyController : MonoBehaviour {
         Vector2 myVel = rb.velocity;
         myVel.x = -myTrans.right.x * speed;
         rb.velocity = myVel;
-	}
+
+        if (health < 1)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "weakshot(Clone)")
+        {
+            health -= 10;
+        }
+
+        if (collision.gameObject.name == "medshots(Clone)")
+        {
+            health -= 30;
+        }
+
+        if (collision.gameObject.name == "strongshots(Clone)")
+        {
+            health -= 50;
+        }
+
+        Debug.LogError(collision.gameObject.name);
+    }
+
 }
