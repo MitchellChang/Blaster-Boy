@@ -10,6 +10,8 @@ public class Player : MonoBehaviour {
     public GameObject Camera;
     private Rigidbody2D formBullet;
     public Rigidbody2D bullets;
+    public Rigidbody2D mediumBullets;
+    public Rigidbody2D strongBullets;
     public Transform firePoint;
 
     public float CameraZoom = -10f;
@@ -23,12 +25,13 @@ public class Player : MonoBehaviour {
     public float moveForce = 365f;
     public float maxSpeed = 3f;
     private bool grounded = false;
-    public float fireRate = 0;
+    public float fireRate = 0.3f;
     public float timeToFire = 0.3f;
     public float Damage = 10;
     public float bulletSpeed = 10f;
     private bool facingLeft = false;
-
+    public bool chargeShot = true;
+    public float chargeTime = 0f;
 
 
     // Use this for initialization
@@ -55,19 +58,44 @@ public class Player : MonoBehaviour {
             //anim.SetBool("jumpCheck", true);
         }
 
-        if (fireRate == 0)
+
+        if (Input.GetKeyDown(KeyCode.Z) && Time.time > timeToFire)
+        {
+            timeToFire = Time.time + fireRate;
+            Shoot("Regular");
+            Debug.LogError("Shot Fired.");
+        }
+        if (chargeShot)
         {
             if (Input.GetKeyDown(KeyCode.Z))
             {
-                Shoot();
+                chargeTime = Time.time;
             }
-        }
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.Z) && Time.time > timeToFire)
+
+            if (Input.GetKeyUp(KeyCode.Z) && ((Time.time - chargeTime) > 1))
             {
-                timeToFire = Time.time + fireRate;
-                Shoot();
+                if (((Time.time - chargeTime) > 1.1) && ((Time.time - chargeTime) < 2))
+                {
+                    chargeTime = Time.time;
+                    Shoot("Medium");
+                    Debug.LogError("Medium Charge Shot.");
+                }
+                else if ((Time.time - chargeTime) > 2)
+                {
+                    chargeTime = Time.time;
+                    Shoot("Strong");
+                    Debug.LogError("Strong Charge Shot.");
+                }
+            }
+            else if (Input.GetKeyUp(KeyCode.Z))
+            {
+                if (Time.time > timeToFire)
+                {
+                    timeToFire = Time.time + fireRate;
+                    Shoot("Regular");
+                    Debug.LogError("Regular pre-charge shot Fired.");
+                }
+                chargeTime = 0;
             }
         }
     }
@@ -119,11 +147,15 @@ public class Player : MonoBehaviour {
         if (moveX > 0)
         {
             rb.GetComponent <Transform>().localScale = new Vector3(0.3615583f, 0.3615583f, 0.3615583f);
+            mediumBullets.GetComponent<Transform>().localScale = new Vector3(3.734925f, 3.734925f, 3.734925f);
+            strongBullets.GetComponent<Transform>().localScale = new Vector3(4.08799f, 4.08799f, 4.08799f);
             facingLeft = false;
         }
         else if (moveX < 0)
         {
             rb.GetComponent<Transform>().localScale = new Vector3(-0.3615583f, 0.3615583f, 0.3615583f);
+            mediumBullets.GetComponent<Transform>().localScale = new Vector3(-3.734925f, 3.734925f, 3.734925f);
+            strongBullets.GetComponent<Transform>().localScale = new Vector3(-4.08799f, 4.08799f, 4.08799f);
             facingLeft = true;
         }
     }
@@ -133,9 +165,20 @@ public class Player : MonoBehaviour {
         Camera.transform.position = new Vector3(transform.position.x, transform.position.y + 2, CameraZoom);
     }
 
-    void Shoot()
-    {    
-        formBullet = Instantiate(bullets, firePoint.position, firePoint.rotation) as Rigidbody2D;
+    void Shoot(string shotType)
+    {
+        if (shotType == "Regular")
+        {
+            formBullet = Instantiate(bullets, firePoint.position, firePoint.rotation) as Rigidbody2D;
+        }
+        else if (shotType == "Medium")
+        {
+            formBullet = Instantiate(mediumBullets, firePoint.position, firePoint.rotation) as Rigidbody2D;
+        }
+        else if (shotType == "Strong")
+        {
+            formBullet = Instantiate(strongBullets, firePoint.position, firePoint.rotation) as Rigidbody2D;
+        }
         if (facingLeft)
         {
             formBullet.velocity = bulletSpeed * formBullet.transform.right * -1;
