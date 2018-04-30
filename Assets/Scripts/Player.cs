@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,7 +33,10 @@ public class Player : MonoBehaviour {
     private bool facingLeft = false;
     public bool chargeShot = true;
     public float chargeTime = 0f;
+    public float maxHealth = 20f;
+    public float currentHealth = 20f;
 
+    public Slider HealthBar;
 
     // Use this for initialization
     void Start()
@@ -189,5 +193,42 @@ public class Player : MonoBehaviour {
             formBullet.velocity = bulletSpeed * formBullet.transform.right;
             
         }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        string enemyName = collision.gameObject.name.Substring(0,3);
+        if (enemyName == "Gro" || enemyName == "Air")
+        {
+            DealDamage(10);
+            Debug.Log(currentHealth);
+        }
+
+        if (collision.gameObject.name == "boss")
+        {
+            DealDamage(15);
+        }
+    }
+
+    void DealDamage(float damageValue)
+    {
+        currentHealth -= damageValue;
+        HealthBar.value = CalculateHealth();
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    float CalculateHealth()
+    {
+        return currentHealth / maxHealth;
+    }
+
+    void Die()
+    {
+        currentHealth = 0;
+        Destroy(gameObject);
+        Debug.Log("Deadddddddd.");
     }
 }

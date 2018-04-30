@@ -11,8 +11,9 @@ public class EnemyController : MonoBehaviour {
     Transform myTrans;
     float myWidth, myHeight;
 
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start () {
         myTrans = this.transform;
         rb = this.GetComponent<Rigidbody2D>();
         SpriteRenderer mySprite = this.GetComponent<SpriteRenderer>();
@@ -69,7 +70,6 @@ public class EnemyController : MonoBehaviour {
             health -= 50;
         }
 
-        Debug.LogError(collision.gameObject.name);
     }
 
 }
