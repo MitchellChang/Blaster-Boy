@@ -3,19 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour {
-
     Rigidbody2D rb;
     public float speed = 1f;
     public float health = 100f;
     public LayerMask enemyMask;
     Transform myTrans;
     float myWidth, myHeight;
-
+    public GameObject deathAnim;
+    GameObject deathAnim2;
+    Animator deathAnimator;
 
     // Use this for initialization
     void Start () {
         myTrans = this.transform;
         rb = this.GetComponent<Rigidbody2D>();
+
         SpriteRenderer mySprite = this.GetComponent<SpriteRenderer>();
         myWidth = mySprite.bounds.extents.x;
         myHeight = mySprite.bounds.extents.y;
@@ -49,7 +51,10 @@ public class EnemyController : MonoBehaviour {
 
         if (health < 1)
         {
-            Destroy(gameObject);
+            Destroy(this.gameObject);
+            deathAnim2 = Instantiate(deathAnim, transform.position, Quaternion.identity);
+            deathAnimator = deathAnim2.GetComponent<Animator>();
+            Destroy(deathAnim2, deathAnimator.runtimeAnimatorController.animationClips[0].length);
         }
     }
 

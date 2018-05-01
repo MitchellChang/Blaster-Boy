@@ -1269,7 +1269,7 @@ Transform:
   - {fileID: 564555514}
   - {fileID: 567283120}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &564555513
 GameObject:
@@ -1541,7 +1541,7 @@ Transform:
   m_GameObject: {fileID: 596596846}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 28.718527, y: 28.71855, z: 28.71855}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -2763,7 +2763,7 @@ RectTransform:
   m_Children:
   - {fileID: 862576769}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3326,7 +3326,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4727218655694924, guid: d0e3ee258b7c776478aeca6627182518, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 114214852378226266, guid: d0e3ee258b7c776478aeca6627182518,
         type: 2}
@@ -4042,7 +4042,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1578481168}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -16.425438, y: -11.213781, z: -3.21875}
+  m_LocalPosition: {x: -16.39, y: -11.213781, z: -3.21875}
   m_LocalScale: {x: 6.546218, y: 14.292091, z: 1}
   m_Children: []
   m_Father: {fileID: 872304676}
@@ -4746,6 +4746,26 @@ Transform:
   m_Father: {fileID: 300790287}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1828836756 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1696548510942462, guid: 5df829077d9c2a34c89ec01a36a5e0d4,
+    type: 2}
+  m_PrefabInternal: {fileID: 670148027}
+--- !u!111 &1828836757
+Animation:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1828836756}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 0}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1935070944
 GameObject:
   m_ObjectHideFlags: 0
@@ -4880,7 +4900,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4931287024663438, guid: 5df829077d9c2a34c89ec01a36a5e0d4, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1696548510942462, guid: 5df829077d9c2a34c89ec01a36a5e0d4, type: 2}
       propertyPath: m_Name

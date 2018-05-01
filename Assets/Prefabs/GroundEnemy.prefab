@@ -118,9 +118,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
+  health: 100
   enemyMask:
     serializedVersion: 2
     m_Bits: 4294967039
+  deathAnim: {fileID: 1560536512499342, guid: 485a4c75ffb788a499412e0fa1a9cede, type: 2}
 --- !u!212 &212106560049462210
 SpriteRenderer:
   m_ObjectHideFlags: 1
