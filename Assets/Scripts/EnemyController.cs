@@ -75,6 +75,11 @@ public class EnemyController : MonoBehaviour {
             health -= 50;
         }
 
+        if (collision.gameObject.name == "WindAttack(Clone)" || collision.gameObject.name == "RockAttack(Clone)" || collision.gameObject.name == "FireAttack(Clone)" || collision.gameObject.name == "WaterAttack(Clone)")
+        {
+            health -= 20;
+        }
+
     }
 
 }

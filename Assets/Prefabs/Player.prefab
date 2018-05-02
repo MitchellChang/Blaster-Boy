@@ -148,6 +148,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundCheck: {fileID: 4406765995640670}
   Camera: {fileID: 0}
+  bullets: {fileID: 50227598710173634, guid: d6d807cf3fc184d43a958aa5eb4fbbe6, type: 2}
+  mediumBullets: {fileID: 50036584807421280, guid: 03f54fad5b08a6b42af8d2c54f91529d,
+    type: 2}
+  strongBullets: {fileID: 50365916687570102, guid: 9cbc3c108c344b1489a353b605f0b5d5,
+    type: 2}
+  windBullets: {fileID: 50082811302815272, guid: f793553b086b656468c07a912b77672b,
+    type: 2}
+  rockBullets: {fileID: 50726570652597412, guid: 476a3961e0eef444fa7d242a7e9f01d7,
+    type: 2}
+  fireBullets: {fileID: 50327159766106696, guid: 0e241bc80733be047a690f06642641a8,
+    type: 2}
+  waterBullets: {fileID: 50553440995089458, guid: d5dbaf1fc5f71d34cb4bf9d6532cb9f2,
+    type: 2}
+  firePoint: {fileID: 0}
   CameraZoom: -10
   jump: 0
   jumpVelocity: 8
@@ -155,6 +169,24 @@ MonoBehaviour:
   lowJumpMultiplier: 2
   moveForce: 365
   maxSpeed: 3
+  fireRate: 0.3
+  timeToFire: 0.3
+  Damage: 10
+  bulletSpeed: 10
+  chargeTime: 0
+  maxHealth: 20
+  currentHealth: 20
+  iFrameLength: 5
+  timeHit: 0
+  Fill: {fileID: 0}
+  MaxHealthColor: {r: 0, g: 1, b: 0, a: 1}
+  MedHealthColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  MinHealthColor: {r: 1, g: 0, b: 0, a: 1}
+  chargeShot: 1
+  dash: 1
+  armor: 1
+  equipped: 0
+  HealthBar: {fileID: 0}
 --- !u!212 &212654702160032326
 SpriteRenderer:
   m_ObjectHideFlags: 1

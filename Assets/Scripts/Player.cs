@@ -13,6 +13,10 @@ public class Player : MonoBehaviour {
     public Rigidbody2D bullets;
     public Rigidbody2D mediumBullets;
     public Rigidbody2D strongBullets;
+    public Rigidbody2D windBullets;
+    public Rigidbody2D rockBullets;
+    public Rigidbody2D fireBullets;
+    public Rigidbody2D waterBullets;
     public Transform firePoint;
 
     public float CameraZoom = -10f;
@@ -31,10 +35,33 @@ public class Player : MonoBehaviour {
     public float Damage = 10;
     public float bulletSpeed = 10f;
     private bool facingLeft = false;
-    public bool chargeShot = true;
     public float chargeTime = 0f;
     public float maxHealth = 20f;
     public float currentHealth = 20f;
+    public float iFrameLength = 2.5f;
+    public float timeHit = 0f;
+    public Image Fill;
+    public Color MaxHealthColor = Color.blue;
+    public Color MedHealthColor = Color.yellow;
+    public Color MinHealthColor = Color.red;
+    int powerChecker = 0;
+
+
+
+    //ABILITIES
+    public bool chargeShot = true;
+    public bool dash = true;
+    public bool armor = true;
+
+    //POWERS
+    bool[] powers = new bool[] {true, true, true, true, true};
+    //0: Regular
+    //1: Water
+    //2: Rock
+    //3: Wind
+    //4: Fire
+
+    public int equipped = 0;
 
     public Slider HealthBar;
 
@@ -63,13 +90,74 @@ public class Player : MonoBehaviour {
         }
 
 
+        //Ability swaps down
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            powerChecker = equipped - 1;
+            if (powerChecker < 0)
+            {
+                powerChecker = 4;
+            }
+            while (powers[powerChecker] != true)
+            {
+                powerChecker--;
+                if (powerChecker < 0)
+                {
+                    powerChecker = 4;
+                }
+            }
+            equipped = powerChecker;
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            powerChecker = equipped + 1;
+            if (powerChecker > 4)
+            {
+                powerChecker = 0;
+            }
+            while (powers[powerChecker] != true)
+            {
+                powerChecker++;
+                if (powerChecker > 4)
+                {
+                    powerChecker = 0;
+                }
+            }
+            equipped = powerChecker;
+        }
+
+        //Regular bullet fire
         if (Input.GetKeyDown(KeyCode.Z) && Time.time > timeToFire)
         {
             timeToFire = Time.time + fireRate;
-            Shoot("Regular");
-            Debug.LogError("Shot Fired.");
+            if (equipped == 0)
+            {
+                Shoot("Regular");
+            }
+            else if (equipped == 1)
+            {
+                Shoot("Water");
+            }
+            else if (equipped == 2)
+            {
+                Shoot("Rock");
+            }
+            else if (equipped == 3)
+            {
+                Shoot("Wind");
+            }
+            else if (equipped == 4)
+            {
+                Shoot("Fire");
+            }
+            Debug.Log("Shot Fired.");
         }
-        if (chargeShot)
+
+
+
+        //Charge shot and regular weapon equipped
+        if (chargeShot && equipped == 0)
         {
             if (Input.GetKeyDown(KeyCode.Z))
             {
@@ -153,6 +241,10 @@ public class Player : MonoBehaviour {
             rb.GetComponent <Transform>().localScale = new Vector3(0.3615583f, 0.3615583f, 0.3615583f);
             mediumBullets.GetComponent<Transform>().localScale = new Vector3(3.734925f, 3.734925f, 3.734925f);
             strongBullets.GetComponent<Transform>().localScale = new Vector3(4.08799f, 4.08799f, 4.08799f);
+            windBullets.GetComponent<Transform>().localScale = new Vector3(1.740225f, 1.779703f, 1f);
+            rockBullets.GetComponent<Transform>().localScale = new Vector3(1.474272f, 1.242966f, 1f);
+            fireBullets.GetComponent<Transform>().localScale = new Vector3(2.957596f, 2.91796f, 1f);
+            waterBullets.GetComponent<Transform>().localScale = new Vector3(2.692935f, 2.656751f, 1f);
             facingLeft = false;
         }
         else if (moveX < 0)
@@ -160,6 +252,10 @@ public class Player : MonoBehaviour {
             rb.GetComponent<Transform>().localScale = new Vector3(-0.3615583f, 0.3615583f, 0.3615583f);
             mediumBullets.GetComponent<Transform>().localScale = new Vector3(-3.734925f, 3.734925f, 3.734925f);
             strongBullets.GetComponent<Transform>().localScale = new Vector3(-4.08799f, 4.08799f, 4.08799f);
+            windBullets.GetComponent<Transform>().localScale = new Vector3(-1.740225f, 1.779703f, 1f);
+            rockBullets.GetComponent<Transform>().localScale = new Vector3(-1.474272f, 1.242966f, 1f);
+            fireBullets.GetComponent<Transform>().localScale = new Vector3(-2.957596f, 2.91796f, 1f);
+            waterBullets.GetComponent<Transform>().localScale = new Vector3(-2.692935f, 2.656751f, 1f);
             facingLeft = true;
         }
     }
@@ -183,6 +279,23 @@ public class Player : MonoBehaviour {
         {
             formBullet = Instantiate(strongBullets, firePoint.position, firePoint.rotation) as Rigidbody2D;
         }
+        else if (shotType == "Wind")
+        {
+            formBullet = Instantiate(windBullets, firePoint.position, firePoint.rotation) as Rigidbody2D;
+        }
+        else if (shotType == "Rock")
+        {
+            formBullet = Instantiate(rockBullets, firePoint.position, firePoint.rotation) as Rigidbody2D;
+        }
+        else if (shotType == "Fire")
+        {
+            formBullet = Instantiate(fireBullets, firePoint.position, firePoint.rotation) as Rigidbody2D;
+        }
+        else if (shotType == "Water")
+        {
+            formBullet = Instantiate(waterBullets, firePoint.position, firePoint.rotation) as Rigidbody2D;
+        }
+
         if (facingLeft)
         {
             formBullet.velocity = bulletSpeed * formBullet.transform.right * -1;
@@ -199,15 +312,18 @@ public class Player : MonoBehaviour {
     {
         string collisionName = collision.gameObject.name.Substring(0,3);
         //Tests fir enemy hits
-        if (collisionName == "Gro" || collisionName == "Air")
+        if ((Time.time - timeHit) > iFrameLength)
         {
-            DealDamage(10);
-            Debug.Log(currentHealth);
-        }
-        //Tests for boss hits, "boss" name is just temporary until boss is implemented
-        if (collisionName == "boss")
-        {
-            DealDamage(15);
+            if (collisionName == "Gro" || collisionName == "Air")
+            {
+                DealDamage(5);
+                Debug.Log(currentHealth);
+            }
+            //Tests for boss hits, "boss" name is just temporary until boss is implemented
+            if (collisionName == "boss")
+            {
+                DealDamage(7);
+            }
         }
 
         if (collisionName == "Hea")
@@ -215,20 +331,36 @@ public class Player : MonoBehaviour {
             Destroy(collision.gameObject);
             GiveHealth(10);
         }
-        
+        if (collisionName == "Win")
+        {
+            maxHealth += 5;
+            GiveHealth(50);
+            Debug.Log(currentHealth);
+            Destroy(collision.gameObject);
+        }
+        if (currentHealth/maxHealth > 0.5)
+        {
+            Fill.color = Color.Lerp(MedHealthColor, MaxHealthColor, currentHealth / maxHealth);
+        }
+        else
+        {
+            Fill.color = Color.Lerp(MinHealthColor, MedHealthColor, currentHealth / maxHealth);
+        }
     }
 
     void DealDamage(float damageValue)
     {
         currentHealth -= damageValue;
         HealthBar.value = CalculateHealth();
+        timeHit = Time.time;
         if (currentHealth <= 0)
         {
             Die();
         }
+
     }
 
-    void GiveHealth(float healValue)
+        void GiveHealth(float healValue)
     {
         currentHealth += healValue;
         HealthBar.value = CalculateHealth();
