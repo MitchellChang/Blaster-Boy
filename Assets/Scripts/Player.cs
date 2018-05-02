@@ -197,17 +197,25 @@ public class Player : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        string enemyName = collision.gameObject.name.Substring(0,3);
-        if (enemyName == "Gro" || enemyName == "Air")
+        string collisionName = collision.gameObject.name.Substring(0,3);
+        //Tests fir enemy hits
+        if (collisionName == "Gro" || collisionName == "Air")
         {
             DealDamage(10);
             Debug.Log(currentHealth);
         }
-
-        if (collision.gameObject.name == "boss")
+        //Tests for boss hits, "boss" name is just temporary until boss is implemented
+        if (collisionName == "boss")
         {
             DealDamage(15);
         }
+
+        if (collisionName == "Hea")
+        {
+            Destroy(collision.gameObject);
+            GiveHealth(10);
+        }
+        
     }
 
     void DealDamage(float damageValue)
@@ -217,6 +225,17 @@ public class Player : MonoBehaviour {
         if (currentHealth <= 0)
         {
             Die();
+        }
+    }
+
+    void GiveHealth(float healValue)
+    {
+        currentHealth += healValue;
+        HealthBar.value = CalculateHealth();
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+            HealthBar.value = CalculateHealth();
         }
     }
 
