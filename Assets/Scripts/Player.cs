@@ -19,6 +19,8 @@ public class Player : MonoBehaviour {
     public Rigidbody2D waterBullets;
     public Transform firePoint;
 
+    Image[] images;
+
     public float CameraZoom = -10f;
 
     //player movement
@@ -64,6 +66,8 @@ public class Player : MonoBehaviour {
     public int equipped = 0;
 
     public Slider HealthBar;
+    public Image powerIcon;
+    public Text powerText;
 
     // Use this for initialization
     void Start()
@@ -75,11 +79,19 @@ public class Player : MonoBehaviour {
         {
             Debug.LogError("Fire Point not found.");
         }
+        ///////////////////////////////////////////////////////////////
+        powerIcon = powerIcon.GetComponentInChildren<Image>();
+        foreach(Image image in images)
+        {
+            Debug.Log("Eh");
+        }
+        ///////////////////////////////////////////////////////////
     }
 
     // Update is called once per frame
     void Update()
     {
+        changePowerUI();
         UpdateCamera();
         grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
 
@@ -107,6 +119,7 @@ public class Player : MonoBehaviour {
                 }
             }
             equipped = powerChecker;
+            changePowerUI();
         }
 
         if (Input.GetKeyDown(KeyCode.C))
@@ -125,6 +138,7 @@ public class Player : MonoBehaviour {
                 }
             }
             equipped = powerChecker;
+            changePowerUI();
         }
 
         //Regular bullet fire
@@ -382,4 +396,42 @@ public class Player : MonoBehaviour {
         Destroy(gameObject);
         Debug.Log("Deadddddddd.");
     }
+
+    void changePowerUI()
+    {
+        if (equipped == 0)
+        {
+            
+
+
+            powerText.GetComponent<Text>().text = "Blaster";
+            Color tempcolor = new Color(0, 223, 255);
+            powerText.GetComponent<Text>().color = tempcolor;
+        }
+        else if (equipped == 1)
+        {
+            powerText.GetComponent<Text>().text = "Water";
+            Color tempcolor = Color.blue;
+            powerText.GetComponent<Text>().color = tempcolor;
+        }
+        else if (equipped == 2)
+        {
+            powerText.GetComponent<Text>().text = "Rock";
+            Color tempcolor = Color.gray;
+            powerText.GetComponent<Text>().color = tempcolor;
+        }
+        else if (equipped == 3)
+        {
+            powerText.GetComponent<Text>().text = "Wind";
+            Color tempcolor = Color.white;
+            powerText.GetComponent<Text>().color = tempcolor;
+        }
+        else if (equipped == 4)
+        {
+            powerText.GetComponent<Text>().text = "Fire";
+            Color tempcolor = Color.red;
+            powerText.GetComponent<Text>().color = tempcolor;
+        }
+    }
+
 }
