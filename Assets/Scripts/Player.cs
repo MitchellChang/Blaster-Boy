@@ -19,7 +19,7 @@ public class Player : MonoBehaviour {
     public Rigidbody2D waterBullets;
     public Transform firePoint;
 
-    Image[] images;
+
 
     public float CameraZoom = -10f;
 
@@ -66,7 +66,6 @@ public class Player : MonoBehaviour {
     public int equipped = 0;
 
     public Slider HealthBar;
-    public Image powerIcon;
     public Text powerText;
 
     // Use this for initialization
@@ -79,13 +78,6 @@ public class Player : MonoBehaviour {
         {
             Debug.LogError("Fire Point not found.");
         }
-        ///////////////////////////////////////////////////////////////
-        powerIcon = powerIcon.GetComponentInChildren<Image>();
-        foreach(Image image in images)
-        {
-            Debug.Log("Eh");
-        }
-        ///////////////////////////////////////////////////////////
     }
 
     // Update is called once per frame
@@ -401,9 +393,6 @@ public class Player : MonoBehaviour {
     {
         if (equipped == 0)
         {
-            
-
-
             powerText.GetComponent<Text>().text = "Blaster";
             Color tempcolor = new Color(0, 223, 255);
             powerText.GetComponent<Text>().color = tempcolor;
