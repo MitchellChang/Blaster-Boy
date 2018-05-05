@@ -162,6 +162,7 @@ MonoBehaviour:
   waterBullets: {fileID: 50553440995089458, guid: d5dbaf1fc5f71d34cb4bf9d6532cb9f2,
     type: 2}
   firePoint: {fileID: 0}
+  deathAnim: {fileID: 1028753544280480, guid: 179dbcbcab78325469468fb46fe222c2, type: 2}
   CameraZoom: -10
   jump: 0
   jumpVelocity: 8
@@ -187,6 +188,7 @@ MonoBehaviour:
   armor: 1
   equipped: 0
   HealthBar: {fileID: 0}
+  powerText: {fileID: 0}
 --- !u!212 &212654702160032326
 SpriteRenderer:
   m_ObjectHideFlags: 1

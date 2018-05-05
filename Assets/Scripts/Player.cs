@@ -19,6 +19,9 @@ public class Player : MonoBehaviour {
     public Rigidbody2D waterBullets;
     public Transform firePoint;
 
+    public GameObject deathAnim;
+    GameObject deathAnim2;
+    Animator deathAnimator;
 
 
     public float CameraZoom = -10f;
@@ -386,7 +389,9 @@ public class Player : MonoBehaviour {
     {
         currentHealth = 0;
         Destroy(gameObject);
-        Debug.Log("Deadddddddd.");
+        deathAnim2 = Instantiate(deathAnim, transform.position, Quaternion.identity);
+        deathAnimator = deathAnim2.GetComponent<Animator>();
+        Destroy(deathAnim2, deathAnimator.runtimeAnimatorController.animationClips[0].length + 5);
     }
 
     void changePowerUI()
