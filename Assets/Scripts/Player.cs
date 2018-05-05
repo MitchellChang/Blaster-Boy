@@ -234,6 +234,7 @@ public class Player : MonoBehaviour {
         //Debug.Log(moveX);
 
         //cannot move while midair
+        /*
         if (grounded)
         {
             if (moveX * rb.velocity.x < maxSpeed)
@@ -243,6 +244,12 @@ public class Player : MonoBehaviour {
             //if (moveX < 0.3 && moveX > -0.3)
                 //rb.velocity = new Vector2(0, rb.velocity.y);
         }
+        */
+
+        if (moveX * rb.velocity.x < maxSpeed)
+            rb.AddForce(Vector2.right * moveX * moveForce);
+        if (Mathf.Abs(rb.velocity.x) > maxSpeed)
+            rb.velocity = new Vector2(Mathf.Sign(rb.velocity.x), rb.velocity.y);
 
         //flips player scale to face direction it is moving
         if (moveX > 0)
@@ -317,9 +324,9 @@ public class Player : MonoBehaviour {
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D body)
     {
-        string collisionName = collision.gameObject.name.Substring(0,3);
+        string collisionName = body.gameObject.name.Substring(0,3);
         //Tests fir enemy hits
         if ((Time.time - timeHit) > iFrameLength)
         {
@@ -329,15 +336,21 @@ public class Player : MonoBehaviour {
                 Debug.Log(currentHealth);
             }
             //Tests for boss hits, "boss" name is just temporary until boss is implemented
-            if (collisionName == "boss")
+            if (collisionName == "Bos")
             {
                 DealDamage(7);
             }
+
+            if (collisionName == "gri")
+            {
+                DealDamage(7);
+            }
+            Debug.Log(collisionName);
         }
 
         if (collisionName == "Hea")
         {
-            Destroy(collision.gameObject);
+            Destroy(body.gameObject);
             GiveHealth(10);
         }
         if (collisionName == "Win")
@@ -345,7 +358,7 @@ public class Player : MonoBehaviour {
             maxHealth += 5;
             GiveHealth(50);
             Debug.Log(currentHealth);
-            Destroy(collision.gameObject);
+            Destroy(body.gameObject);
         }
         if (currentHealth/maxHealth > 0.5)
         {
@@ -369,7 +382,7 @@ public class Player : MonoBehaviour {
 
     }
 
-        void GiveHealth(float healValue)
+    void GiveHealth(float healValue)
     {
         currentHealth += healValue;
         HealthBar.value = CalculateHealth();

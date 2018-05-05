@@ -49,7 +49,7 @@ public class EnemyController : MonoBehaviour {
         myVel.x = -myTrans.right.x * speed;
         rb.velocity = myVel;
 
-        if (health < 1)
+        if (health <= 0)
         {
             Destroy(this.gameObject);
             deathAnim2 = Instantiate(deathAnim, transform.position, Quaternion.identity);

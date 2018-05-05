@@ -19,6 +19,9 @@ public class BulletTravel : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Destroy (this.gameObject);
+        if (!(collision.gameObject.name == "weakshot(Clone)") || !(collision.gameObject.name == "medshots(Clone)") || !(collision.gameObject.name == "strongshots(Clone)") || !(collision.gameObject.name == "strongshots(Clone)") || !(collision.gameObject.name == "WindAttack(Clone)") || !(collision.gameObject.name == "RockAttack(Clone)") || !(collision.gameObject.name == "FireAttack(Clone)") || !(collision.gameObject.name == "WaterAttack(Clone)"))
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
